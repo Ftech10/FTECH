@@ -1,0 +1,14 @@
+require('dotenv').config();
+const express=require('express'); const cors=require('cors'); const path=require('path');
+const app=express(); app.use(cors()); app.use(express.json());
+app.use('/api/auth',require('./routes/auth'));
+app.use('/api/users',require('./routes/users'));
+app.use('/api/workouts',require('./routes/workouts'));
+app.use('/api/relationships',require('./routes/relationships'));
+app.use('/api/progress',require('./routes/progress'));
+app.use('/api/stats',require('./routes/stats'));
+app.use(express.static(path.join(__dirname,'public')));
+app.get('/api/health',(req,res)=>res.json({status:'ok',app:'FithTech API'}));
+app.get('*',(req,res)=>res.sendFile(path.join(__dirname,'public','index.html')));
+const port=process.env.PORT||3000;
+app.listen(port,()=>console.log(`FithTech em http://localhost:${port}`));

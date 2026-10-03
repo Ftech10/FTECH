@@ -1,0 +1,10 @@
+require('dotenv').config();const mysql=require('mysql2/promise');
+(async()=>{let c;try{c=await mysql.createConnection({host:process.env.DB_HOST||'localhost',port:Number(process.env.DB_PORT||3306),user:process.env.DB_USER||'root',password:process.env.DB_PASSWORD||'',database:process.env.DB_NAME||'fithtech'});const db=process.env.DB_NAME||'fithtech';
+const has=async(t,col)=>{const [r]=await c.query('SELECT 1 FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=? AND TABLE_NAME=? AND COLUMN_NAME=?',[db,t,col]);return r.length>0};
+if(!await has('usuarios','telefone'))await c.query('ALTER TABLE usuarios ADD COLUMN telefone VARCHAR(30) NULL AFTER email');
+if(!await has('usuarios','bio'))await c.query('ALTER TABLE usuarios ADD COLUMN bio VARCHAR(500) NULL AFTER perfil');
+if(!await has('usuarios','atualizado_em'))await c.query('ALTER TABLE usuarios ADD COLUMN atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP AFTER criado_em');
+if(!await has('treinos','atualizado_em'))await c.query('ALTER TABLE treinos ADD COLUMN atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP AFTER criado_em');
+const idx=async(t,n,sql)=>{const [r]=await c.query('SELECT 1 FROM information_schema.STATISTICS WHERE TABLE_SCHEMA=? AND TABLE_NAME=? AND INDEX_NAME=?',[db,t,n]);if(!r.length)await c.query(sql)};
+await idx('treinos','idx_treinos_aluno_ativo','CREATE INDEX idx_treinos_aluno_ativo ON treinos(aluno_id,ativo)');await idx('progresso','idx_progresso_aluno_data','CREATE INDEX idx_progresso_aluno_data ON progresso(aluno_id,concluido_em)');
+console.log('FithTech V4: banco atualizado sem apagar os dados existentes.');}catch(e){console.error('Erro na migração V4:',e.message);process.exitCode=1}finally{if(c)await c.end()}})();

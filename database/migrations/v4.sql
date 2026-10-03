@@ -1,0 +1,7 @@
+USE fithtech;
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS telefone VARCHAR(30) NULL AFTER email;
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS bio VARCHAR(500) NULL AFTER perfil;
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP AFTER criado_em;
+ALTER TABLE treinos ADD COLUMN IF NOT EXISTS atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP AFTER criado_em;
+CREATE INDEX idx_treinos_aluno_ativo ON treinos(aluno_id,ativo);
+CREATE INDEX idx_progresso_aluno_data ON progresso(aluno_id,concluido_em);

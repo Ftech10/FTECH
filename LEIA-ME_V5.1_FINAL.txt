@@ -1,0 +1,14 @@
+FTECH V5.1 - Projeto Revisado; Heitor
+Objetivo desta versão:
+- congelar novas funcionalidades;
+- manter o código;
+- revisar landing page, login, feedback visual e responsividade;
+- preservar API, MySQL, vínculos, treinos e histórico existentes.
+
+ANTES DE USAR
+1. Copie o arquivo .env da versão anterior para esta pasta.
+2. Abra o PowerShell nesta pasta.
+3. Execute:
+   npm.cmd install
+   npm.cmd start
+

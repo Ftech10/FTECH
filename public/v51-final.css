@@ -1,0 +1,56 @@
+
+/* FTECH V5.1 - acabamento final simples e didático */
+:root { --ftech-blue:#36a3ff; --ftech-violet:#7657ff; }
+
+.modality-card, .feature-card {
+  transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+}
+.modality-card:hover, .feature-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(118,87,255,.65);
+  box-shadow: 0 16px 38px rgba(0,0,0,.22);
+}
+.ftech-line-icon {
+  width:42px; height:42px; display:grid; place-items:center;
+  border-radius:12px;
+  background:linear-gradient(135deg,rgba(54,163,255,.14),rgba(118,87,255,.16));
+  border:1px solid rgba(118,87,255,.25);
+  color:#8c7cff;
+  margin-bottom:18px;
+}
+.ftech-line-icon svg { width:23px; height:23px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+
+.password-wrap { position:relative; }
+.password-toggle {
+  position:absolute; right:13px; top:50%; transform:translateY(-50%);
+  border:0; background:transparent; color:#9aa9c3; cursor:pointer;
+  display:grid; place-items:center; padding:7px; border-radius:8px;
+}
+.password-toggle:hover { color:#fff; background:rgba(255,255,255,.05); }
+.password-toggle svg { width:19px; height:19px; fill:none; stroke:currentColor; stroke-width:1.8; }
+
+.auth-register-link {
+  border:0; background:transparent; color:#9fb0cb; cursor:pointer;
+  font:inherit; padding:8px 12px; border-radius:9px;
+}
+.auth-register-link:hover { color:#fff; background:rgba(118,87,255,.09); }
+
+.ftech-toast-container {
+  position:fixed; right:22px; bottom:22px; z-index:9999;
+  display:grid; gap:10px; pointer-events:none;
+}
+.ftech-toast {
+  min-width:270px; max-width:380px; padding:14px 16px;
+  border:1px solid rgba(255,255,255,.1); border-radius:14px;
+  background:rgba(12,18,29,.96); color:#f7f9ff;
+  box-shadow:0 18px 50px rgba(0,0,0,.32);
+  animation:ftechToastIn .25s ease both;
+}
+.ftech-toast strong { display:block; margin-bottom:3px; }
+.ftech-toast span { color:#9fb0cb; font-size:.9rem; }
+@keyframes ftechToastIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+
+@media (max-width:760px){
+  .ftech-toast-container{left:16px;right:16px;bottom:16px}
+  .ftech-toast{min-width:0;max-width:none}
+}
